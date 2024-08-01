@@ -25,8 +25,15 @@ def start_game():
 
         player_input = input('Guess the random number: ')
 
-        if int(player_input) == random_number:
-            guess_attempts.append(int(player_input))
+        # Check if the input by the player can be parsed into an integer, do not allow strings or floats
+        try:
+            valid_number_check = int(player_input)
+        except ValueError:
+            print(f"'{player_input}' is not a valid number. Please do not enter letters or decimals")
+            continue
+
+        if valid_number_check == random_number:
+            guess_attempts.append(valid_number_check)
 
             # Handles first run through
             if high_score == 0:
@@ -57,15 +64,15 @@ def start_game():
                     print("Sorry please enter Y or N")
         
         # Handle out of range numbers
-        elif int(player_input) > 10 or int(player_input) < 0:
+        elif valid_number_check > 10 or valid_number_check < 0:
             print("The number that you have entered is out of range")
-            guess_attempts.append(int(player_input))
-        elif int(player_input) > random_number:
+            guess_attempts.append(valid_number_check)
+        elif valid_number_check > random_number:
             print("It's lower")
-            guess_attempts.append(int(player_input))
-        elif int(player_input) < random_number:
+            guess_attempts.append(valid_number_check)
+        elif valid_number_check < random_number:
             print("It's higher")
-            guess_attempts.append(int(player_input))
+            guess_attempts.append(valid_number_check)
     return 
 
 start_game()
